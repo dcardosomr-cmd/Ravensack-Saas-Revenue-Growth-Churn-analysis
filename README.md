@@ -1,275 +1,198 @@
-# RavenStack SaaS Revenue Growth & Churn Analysis
+# Ravensack-SaaS-Revenue-Growth-Churn-Analysis
 
-## Overview
+## Project Overview
 
-This repository contains a comprehensive business intelligence analysis of **RavenStack**, a SaaS platform experiencing rapid subscription growth alongside significant churn challenges. The analysis examines revenue patterns, churn indicators, and product reliability to identify root causes and propose actionable strategies for sustainable growth.
+This project analyses RavenStack, a SaaS platform launched in 2023 that is experiencing rapid subscription growth alongside a critical churn problem. With $136M in total revenue, 5K subscriptions, and a 42.76% annual churn rate bleeding $14M in lost ARR, the core question is: **why are customers who convert from trial churning after they start paying?**
 
-## Repository Contents
+The analysis examines three dimensions — revenue and growth patterns, churn drivers, and feature reliability — to identify root causes and build a phased recovery plan targeting $25M ARR within 12 months.
 
-- **Analysis Dashboards** (`Analysis Dashboards.pbix`) - Power BI interactive dashboards visualizing revenue trends, churn patterns, and KPIs
-- **Data Cleaning Scripts** (`Data Cleaning.sql`) - SQL scripts for data preparation and validation
-- **Business Intelligence Report** (`RavenStack-Business-Intelligence-Report.docx`) - Comprehensive strategic analysis and recommendations
-
-## Executive Summary
-
-### Current Situation:
-- **ARR**: $18.7M (with $14M annual revenue loss to churn)
-- **Churn Rate**: 42.76% annually
-- **Market**: Rapid US market growth with emerging international presence
-- **Platform**: Launched in 2023, gaining traction particularly in FinTech vertical
-
-### Key Findings:
-
-1. **Churn is not a sales problem** - It's a product and delivery issue
-
-2. **Root Causes** (in order of impact):
-   - Feature reliability (48% of churn) - Four core features generate 48.32% of error events
-   - Budget-driven ROI pressure (22% of churn) - Pricing misalignment with perceived value
-   - Competitive pressure (varies by geography) - Vulnerabilities in Canada and France markets
-
-3. **Enterprise Plan Paradox** - Highest revenue generator also experiences greatest revenue loss
-
-## Key Metrics
-
-### Revenue Analysis
-- Revenue demonstrates direct proportionality to seat adoption
-- Enterprise plan dominates revenue (highest tier concentration)
-- US market generates highest revenue with notable volatility
-- FinTech vertical is strongest revenue generator
-
-### Churn Patterns
-- **Trial-to-Paid Conversion**: Strong - most churn occurs AFTER trial completion, not during
-- **Plan Tier Performance**: Enterprise experiences highest revenue loss despite best new revenue generation
-- **Industry Vertical Paradox**: Cybersecurity shows highest churn (despite not being top revenue generator)
-- **Geographic Variation**: Canada and France show elevated competitor-driven churn
-
-### Product Reliability Issues
-- Four features account for 48.32% of all error events (only 10% of product suite)
-- Most errors cluster in mission-critical use cases with inadequate error handling
-- Architectural debt causing cascading failures in core features
-
-
-## Main Pain Points Driving Churn & Solutions
-
-**RavenStack is losing $14M annually to a 42.76% churn rate despite strong product-market fit, creating massive revenue leakage. Here are the four interconnected pain points and their solutions:**
-
-### Pain Point 1: Feature Reliability Crisis (48% of Churn)
-
-**Why it's happening:**
-Four core features account for 48.32% of all error events despite representing only 10% of the product suite. These mission-critical features have inadequate error handling and architectural debt causing cascading failures that appear only after customers move from trial to production use.
-
-**How to solve it:**
-Prioritize and stabilize the four highest-error features through refactoring, enhanced monitoring, and robust error handling. Implement redundancy and failover mechanisms for mission-critical workflows. Establish a 99.95% uptime SLA (Service Level Agreement - a commitment to keep these features available and operational 99.95% of the time, meaning maximum 21.9 minutes of downtime per month) on these core features and continuously monitor production errors.
-
-**Expected outcome:**
-60% error reduction on critical features, reducing feature-driven churn by 25-30% and recovering approximately $3.5M-$4.2M in annual revenue from prevented customer losses.
-
-### Pain Point 2: Budget-Driven ROI Pressure (22% of Churn)
-
-**Why it's happening:**
-Pricing is misaligned with perceived value, particularly in price-sensitive verticals like DevTools and Cybersecurity where customers struggle to justify ROI.
-
-**How to solve it:**
-Develop vertical-specific pricing and packaging architectures tailored to industry economics. Create transparent ROI dashboards showing customer impact so customers can justify renewal internally.
-
-**Expected outcome:**
-30% reduction in budget-driven churn within 6 months, recovering approximately $3.1M in annual revenue.
-
-### Pain Point 3: Revenue Concentration Risk (Enterprise/US/FinTech Dominance)
-
-**Why it's happening:**
-The Enterprise plan generates the highest revenue but also experiences the highest revenue loss. The US market is most volatile. FinTech dominance creates over-dependency on a single vertical.
-
-**How to solve it:**
-Reduce Enterprise plan downgrades by developing Enterprise-exclusive features. Expand aggressively into emerging markets to reduce US dependency. Invest in growth verticals while fixing underperforming ones. Implement market-specific feature customizations.
-
-**Expected outcome:**
-Reduce vertical concentration from 35% to 30%, increase non-US revenue from 25% to 30-35%, and add $1.5M-$2.5M in emerging market revenue.
-
-### Pain Point 4: Trial-to-Paid Conversion Success Masking Post-Conversion Churn
-
-**Why it's happening:**
-Churn occurs AFTER paid conversion, not during trials. This disconnect reveals customers are attracted by the product promise but disappointed by execution. Churn spikes 30-90 days after trial completion when customers hit feature reliability issues and lack onboarding guidance.
-
-**How to solve it:**
-Implement proactive customer success interventions during the critical 30-90 day post-trial window. Create quick-win playbooks showing customers how to achieve ROI within the first 30 days. Ensure trial environments accurately reflect production. Build a customer success team focused on early-stage accounts.
-
-**Expected outcome:**
-Reduce early churn (30-90 days post-trial) by 10-15%, converting strong product-market fit demand into revenue retention and recovering approximately $2M-$2.5M in prevented churn.
+**Tools & Technologies:** SQL Server (data cleaning & validation) · Power BI (interactive dashboards, DAX) · Business Intelligence Reporting
 
 ---
 
-**Integrated Impact:** Solving all four pain points together reduces annual churn from 42.76% to approximately 30% within 12 months, adding $6.3M incremental ARR ($18.7M baseline → $25M target) while diversifying revenue streams and reducing execution-related customer losses.
+## Executive Summary
 
+| Metric | Value |
+|--------|-------|
+| Total Revenue | $136M |
+| Annual Recurring Revenue (ARR) | $18.7M |
+| Total Subscriptions | 5K |
+| Churned Subscriptions | 486 |
+| Annual Churn Rate | 42.76% |
+| Total Lost ARR | $14M |
+| Total Features | 40 |
+| Avg Feature Usage | 10.02 |
 
+### Top Findings
 
-## Strategic Recommendations
+- **Churn is a product problem, not a sales problem.** Trial-to-paid conversion is strong (408 of 486 churned subs converted from trial), but customers leave 30–90 days after paying — when they hit reliability issues in production.
+- **4 features cause 48% of all errors** despite being only 10% of the product suite. feature_4, feature_26, feature_9, and feature_2 are the top error generators driving feature-related churn.
+- **Enterprise plan paradox:** Enterprise generates the highest revenue but also 78.56% ($11M) of all lost revenue. Pro follows at 15.29% ($2M), Basic at 6.15% ($1M).
+- **DevTools vertical churns the most** at 125 subscriptions (25.72%), despite FinTech being the top revenue generator ($32M). Cybersecurity is second-highest churn at 103 (21.19%).
+- **"Features" is the #1 churn reason** by a wide margin, followed by budget, support, unknown, competitor, and pricing.
+- **US dominates revenue** (~$70M+ ARR) but also concentration risk. UK is a distant second. Canada, France, and Australia are small but growing markets.
 
-### Phase 1: Stabilization (Months 1-3)
-**Objective**: Stop revenue hemorrhaging and establish quality baseline
+---
 
-- **Enterprise Plan Stabilization**
-  - Conduct feature reliability audit on four highest-error features
-  - Target: 60% error reduction within 90 days
-  - Expected impact: 15-20% reduction in Enterprise plan churn
+## 1. Revenue & Growth
 
-- **Feature Reliability Program**
-  - Implement enhanced monitoring and error handling
-  - Target: 99.95% uptime SLA on critical features
-  - Expected impact: 25-30% reduction in feature-driven churn
+![Revenue & Growth Dashboard](Dashboards/Revenue%20&%20Growth.png)
 
-- **Trial-to-Paid Communication**
-  - Proactive onboarding and support for newly converted customers
-  - Target: Reduce early churn (30-90 days post-trial) by 10-15%
+Revenue across the platform totals $136M with 5K subscriptions, but the growth story is more nuanced than the topline suggests.
 
-### Phase 2: Value Optimization (Months 3-6)
-**Objective**: Demonstrate clear ROI and establish competitive differentiation
+### Revenue by Industry
 
-- **Vertical-Specific Pricing & Packaging**
-  - Develop plan tier architecture specific to industry verticals
-  - Target: 30% reduction in budget-driven churn within 6 months
-  - Expected impact: 10-15% Enterprise revenue increase
+| Industry | Revenue | Share |
+|----------|---------|-------|
+| FinTech | $32M | Largest |
+| DevTools | $29M | 2nd |
+| Cybersecurity | $27M | 3rd |
+| EdTech | $25M | 4th |
+| HealthTech | $24M | 5th |
 
-- **US & UK Market Consolidation**
-  - Deepen feature adoption in highest-revenue markets
-  - Target: 15-20% increase in seat adoption
-  - Expected ARR impact: $2.1M-$2.8M
+FinTech leads revenue but the spread is relatively narrow ($32M to $24M), meaning no single vertical is overwhelmingly dominant in revenue generation — though FinTech is where product-market fit is strongest.
 
-- **Cybersecurity Vertical Investigation**
-  - Win-loss analysis and competitive analysis
-  - Develop Cybersecurity-specific roadmap
-  - Target: 40% churn reduction in this vertical
+### Revenue by Plan Tier & Year
 
-### Phase 3: Growth Expansion (Months 6-12)
-**Objective**: Scale revenue while maintaining quality and expanding market coverage
+The Annual Revenue by Plan Tier chart reveals Enterprise plans generate the highest ARR amounts in both 2023 and 2024, with seat counts correlating directly to revenue. Pro plans show consistent mid-tier performance, while Basic plans contribute the least per account.
 
-- **Feature-Market Alignment Program**
-  - Establish process to identify feature preferences by geography
-  - Design and launch 2-3 market-specific feature initiatives
-  - Expected ARR impact: $1.5M-$2.5M
+### Lost Revenue Breakdown
 
-- **Emerging Market Selection**
-  - Focus on one high-potential emerging market (Australia, Germany, Singapore)
-  - Expected ARR impact: $0.7M-$1.4M within 12 months
+| Plan Tier | Lost Revenue | % of Total Loss |
+|-----------|-------------|----------------|
+| Enterprise | $11M | 78.56% |
+| Pro | $2M | 15.29% |
+| Basic | $1M | 6.15% |
 
-- **Enterprise Plan Competitiveness**
-  - Develop Enterprise-specific features (governance, compliance, dedicated support)
-  - Target: 50% reduction in Enterprise plan downgrades
-  - Expected ARR impact: $1.2M-$1.8M
+Enterprise accounts losing $11M of the $14M total is the critical finding. These are the highest-value customers and they're leaving at the highest rate — suggesting the product fails to deliver at scale, exactly where Enterprise customers operate.
 
-- **FinTech Vertical Deepening**
-  - Establish FinTech as flagship vertical
-  - Target: 25-30% revenue growth in this segment
-  - Expected ARR impact: $2.5M-$3.5M
+### Revenue by Geography
 
-## Financial Projections
+The US generates the vast majority of both ARR and subscriptions, with UK as a clear second. India, Australia, France, Canada, and Germany contribute smaller but growing shares. This concentration creates risk — any US market disruption would disproportionately impact the business.
 
-### Conservative 12-Month Projection
-- **Baseline ARR**: $18.7M
-- **Projected 12-Month ARR**: $25M
-- **Incremental Revenue**: $6.3M
-- **Churn Rate Target**: Down from 42.76% to ~35%
+---
 
-### Moderate 24-Month Projection
-- **Baseline ARR**: $18.7M
-- **Projected 24-Month ARR**: $31.8M
-- **Cumulative Incremental Revenue**: $13.1M
-- **Churn Rate Target**: Down to ~25%
+## 2. Churn Analysis
 
-## Success Metrics (KPIs)
+![Churn Analysis Dashboard](Dashboards/Churn.png)
 
-### Primary KPIs
-- Annual Churn Rate: Target 30% reduction (from 42.76% to ~30%)
-- Enterprise Plan Retention: +20% within 6 months
-- Feature Reliability: 99.95% uptime on priority features
-- ARR Growth: $18.7M → $25M (12 months) → $31.8M (24 months)
+486 subscriptions churned out of 5K total, producing a 42.76% annual churn rate and $14M in lost ARR. The dashboard breaks down where, why, and who is churning.
 
-### Secondary KPIs
-- Seat Expansion Rate: +15-20% average seats per account
-- Plan Upgrade Rate: +25% Pro to Enterprise transitions
-- Vertical Concentration: 35% → 30% (reduce dependency)
-- Geographic Diversification: Non-US contribution 25% → 30-35%
-- Trial-to-Paid Conversion: Maintain or improve current strong rates
-- Customer Satisfaction: NPS improvement of +15 points within 12 months
+### Churn by Plan Tier
 
-## Implementation Timeline
+| Plan Tier | Churned Subs | Rank |
+|-----------|-------------|------|
+| Pro | 175 | 1st |
+| Enterprise | 161 | 2nd |
+| Basic | 150 | 3rd |
 
-### Week 1-2
-- Assemble engineering task force
-- Brief C-suite on strategic plan
-- Begin customer success team expansion
+Pro leads in absolute churn count, but Enterprise's 161 churned subscriptions carry disproportionate revenue impact ($11M vs $2M for Pro) due to higher contract values.
 
-### Week 3-8
-- Execute feature reliability improvements
-- Launch trial-to-paid support protocol
-- Begin Cybersecurity win-loss analysis
+### Trial vs Non-Trial Churn
 
-### Week 9-12
-- Achieve 99.95% uptime on priority features
-- Measure 15-20% reduction in Enterprise plan churn
-- Complete Cybersecurity analysis and recommendations
+| Trial Customer | Churned |
+|---------------|---------|
+| No (post-trial) | 408 |
+| Yes (during trial) | 78 |
 
-### Months 3-6
-- Launch vertical-specific pricing and packaging
-- Release market-specific feature enhancements (US/UK)
-- Execute competitive analysis responses (CA/FR)
-- Achieve 25-30% reduction in feature-driven churn
+This is the most important chart on the dashboard: **84% of churn happens after trial conversion, not during trial.** Customers are convinced enough to pay, then encounter problems in production. The product sells itself — the execution fails to retain.
 
-### Months 6-12
-- Launch emerging market selection and analysis
-- Develop Enterprise plan differentiation features
-- Establish FinTech customer advisory board
-- Release emerging market-specific features
-- Implement data-driven marketing budget allocation
+### Churn by Industry
 
-## Market Context
+| Industry | Churned | % of Total |
+|----------|---------|-----------|
+| DevTools | 125 | 25.72% |
+| Cybersecurity | 103 | 21.19% |
+| FinTech | 96 | 19.75% |
+| HealthTech | 96 | 19.75% |
+| EdTech | 66 | 13.58% |
 
-### Geographic Performance
-- **Primary Market**: US (highest revenue, highest volatility)
-- **Secondary Market**: UK (second-largest revenue generator)
-- **Challenge Markets**: Canada and France (elevated competitive pressure)
-- **Emerging Markets**: Opportunity for targeted expansion
+DevTools churns the most despite not being the top revenue vertical. Combined with Cybersecurity (21.19%), these two verticals account for nearly half of all churn. EdTech is the best-retained vertical at just 13.58%.
 
-### Industry Vertical Analysis
-- **Strongest Vertical**: FinTech (primary revenue driver with strong adoption)
-- **High-Churn Vertical**: Cybersecurity (despite lower revenue contribution)
-- **Price-Sensitive Verticals**: DevTools, price-sensitive segments
-- **Growth Verticals**: HealthTech, EdTech (lower churn rates)
+### Churn Reason
 
-## Key Insights
+The Churn vs Reason chart shows **"features" as the dominant reason** (~120 events), followed by budget (~80), support (~50), unknown (~40), competitor (~30), and pricing (~20). This confirms the root cause is product reliability, not pricing or competition.
 
-1. **Product-Market Fit Exists** - Strong trial-to-paid conversion proves market demand
-2. **Execution is the Blocker** - $14M churn is not a market problem, it's a delivery problem
-3. **Scale Masked by Quality Issues** - Proportional growth obscures underlying reliability challenges
-4. **Enterprise Customers are Price-Conscious** - Despite high tier, value alignment is critical
-5. **Geography and Vertical Matter** - One-size-fits-all strategy is suboptimal
+### Geographic Churn
 
-## Recommendations for Portfolio Builders
+The map shows churn concentrated in North America and Europe, aligning with where the customer base is largest. The country filter (AU, CA, DE, FR, IN, UK, US) enables drill-down by market.
 
-This project demonstrates:
+---
 
-- **Advanced Analytics**: Revenue attribution, cohort analysis, churn decomposition
-- **Business Intelligence**: Multi-dimensional analysis across revenue, churn, and product dimensions
-- **Data Storytelling**: Complex business problems translated into actionable recommendations
-- **Strategic Thinking**: From diagnosis to implementation roadmap with financial projections
+## 3. Feature Impact Analysis
 
-## How to Use This Repository
+![Feature Impact Dashboard](Dashboards/Feature%20Impact.png)
 
-1. **Review the Executive Summary** - in this README for high-level insights
-2. **Explore Power BI Dashboards** - for interactive data visualization
-3. **Read the Full Report** - for detailed analysis, root cause assessment, and strategic recommendations
-4. **Reference SQL Scripts** - for data methodology and quality checks
+With 40 features and an average usage of 10.02 per subscription, the feature impact dashboard identifies which features drive errors and which drive adoption.
 
-## Contact & Attribution
+### Top Error-Generating Features
 
-- **Analysis by**: Data Analyst & BI Professional
-- **Repository**: [GitHub - dcardosomr-cmd](https://github.com/dcardosomr-cmd)
-- **Focus**: SaaS metrics, churn analysis, revenue optimization, business intelligence
+| Feature | Errors | Risk Level |
+|---------|--------|-----------|
+| feature_4 | ~480 | Critical |
+| feature_26 | ~420 | Critical |
+| feature_9 | ~380 | High |
+| feature_2 | ~350 | High |
+| feature_34 | ~320 | Moderate |
 
-## License
+These 5 features (12.5% of the suite) generate the majority of all error events. feature_4 and feature_26 alone account for roughly 900 errors combined — these are the immediate engineering priorities.
 
-This analysis and associated materials are provided as-is for portfolio and learning purposes.
+### Feature Usage
 
-**Last Updated**: January 2026
-**Status**: Strategic recommendations ready for implementation
-**Next Steps**: Begin Phase 1 stabilization initiatives immediately to address feature reliability and Enterprise plan competitiveness
+The usage chart shows feature_32 with the highest usage (~6,700), followed by feature_6 and feature_12, then a plateau around 6,400–6,500 for feature_11 and feature_24. Critically, the highest-error features (feature_4, feature_26) are not the highest-usage features — meaning the errors aren't simply a function of volume. These features have genuine reliability problems.
+
+### Usage Duration (Treemap)
+
+feature_24, feature_32, and feature_11 dominate usage duration, with feature_12 and feature_6 filling the remainder. This shows where customers spend the most time — and where reliability matters most.
+
+### Subscriptions vs Features
+
+The top features by subscription count (feature_34, feature_1, feature_40, feature_27, feature_8) each serve ~600+ subscriptions. Combined with the error data, feature_34 appears in both the high-error and high-subscription lists — making it a priority fix that would impact the most customers.
+
+---
+
+## 4. Strategic Recommendations
+
+### Phase 1: Stabilisation (Months 1–3)
+
+| Priority | Action | Expected Impact |
+|----------|--------|----------------|
+| 1 | **Fix feature_4 and feature_26** — top 2 error generators | 25–30% reduction in feature-driven churn |
+| 2 | **Enterprise retention programme** — dedicated support for $11M at-risk segment | 15–20% reduction in Enterprise churn |
+| 3 | **Post-trial onboarding** — proactive outreach at 30/60/90 days | 10–15% reduction in early churn |
+
+### Phase 2: Value Optimisation (Months 3–6)
+
+| Priority | Action | Expected Impact |
+|----------|--------|----------------|
+| 4 | **DevTools & Cybersecurity vertical investigation** — why 47% of churn comes from 2 verticals | 30% reduction in budget-driven churn |
+| 5 | **Vertical-specific pricing** — align plan tiers to industry economics | Recover ~$3.1M annual revenue |
+| 6 | **US/UK market deepening** — increase seat adoption in top markets | $2.1M–$2.8M incremental ARR |
+
+### Phase 3: Growth Expansion (Months 6–12)
+
+| Priority | Action | Expected Impact |
+|----------|--------|----------------|
+| 7 | **Emerging market entry** — target Australia, Germany, or Singapore | $0.7M–$1.4M new ARR |
+| 8 | **Enterprise-exclusive features** — governance, compliance, dedicated support | 50% reduction in Enterprise downgrades |
+| 9 | **FinTech vertical deepening** — establish as flagship with advisory board | 25–30% revenue growth in segment |
+
+### Financial Projection
+
+| Timeframe | ARR Target | Churn Rate Target |
+|-----------|-----------|------------------|
+| Baseline | $18.7M | 42.76% |
+| 12 months | $25M | ~30% |
+| 24 months | $31.8M | ~25% |
+
+---
+
+## Data Cleaning
+
+SQL scripts (`Data Cleaning.sql`) were used to prepare and validate the dataset, including data type standardisation, null handling, and quality checks across subscription, revenue, and feature usage tables. Exploratory analysis queries are available in the `Exploratory analysis/` folder.
+
+---
+
+---
+
+*Last Updated: January 2026*
